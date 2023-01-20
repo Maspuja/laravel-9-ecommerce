@@ -48,7 +48,14 @@
             </td>
         </tr>
         @endforeach
+
+        
     </table>
+    <form action="{{ route('checkout') }}" method="post">
+        
+        @csrf
+        <button type="submit">Checkout</button>
+    </form>
         
     
 </body>
