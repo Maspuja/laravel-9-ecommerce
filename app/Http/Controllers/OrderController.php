@@ -44,7 +44,17 @@ class OrderController extends Controller
         }
         
         return Redirect::back();
+    }
 
+    public function index_order()
+    {
+        $orders = Order::all();
+        return view('index_order', compact('orders'));
+    }
+
+    public function show_order(order $order)
+    {
+        return view('show_order', compact('order'));
     }
 
 
