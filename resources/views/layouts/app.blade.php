@@ -11,6 +11,8 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="{{asset('Mdbootstrap/css/mdb.min.css')}}">
+    <link rel="stylesheet" href="{{asset('Mdbootstrap/js/mdb.min.js')}}">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
@@ -77,4 +79,5 @@
         </main>
     </div>
 </body>
+<script type="text/javascript" src="{{ asset('Mdbootstrap/js/mdb.min.js')}}"></script>
 </html>

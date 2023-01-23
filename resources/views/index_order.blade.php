@@ -1,22 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Order</title>
-</head>
-<body>
-    <h1>Table order </h1>
+@extends('layouts.header')
+
+@section('content')
+<div class="container col-md-6">
+    <div class="card text-center text-uppercase">
+      <h1>Table order </h1>
+      </div>
+
     @foreach ($orders as $order)
-    -----------------------------------------
-    <p>Order No : {{ $order->id }}</p>
-    -----------------------------------------
+    <div class="card">
+      <div class="card-header">
+    <p><strong>Order No : {{ $order->id }}</strong></p>
+      </div>
+      <div class="card-body">
       <p>User ID : {{ $order->user_id }}</p>
       <p>Order Date: {{ $order->created_at }}</p>
-    
+      <p>@if ($order->is_paid == True)
+        Status : <b>Paid</b>  
+                
+        @else
+        Status : Unpaid
+        <br>
+        @if ($order->payment_receipt == NULL)
+            
+        @else
+        <a href="{{ url('storage/'. $order->payment_receipt)}}" target="__blank">Lihat bukti TF</a>
+        <br>
+        {{-- <form action="{{ route('confirm_payment', $order) }}" method="post">
+          @csrf
+          <button type="submit">Confirm Payment</button>
+        </form> --}}
+      
+        @endif
+        
+       
+          
+      @endif</p>
+      <br>
+      
+    </div>
+  </div>
       
     @endforeach
-    
-</body>
-</html>
+    {{-- <div class="pagination">
+      {{ $orders->links('pagination::bootstrap-5') }}
+    </div> --}}
+</div>
+@endsection

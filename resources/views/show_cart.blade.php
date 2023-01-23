@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show cart</title>
-</head>
-<body>
+@extends('layouts.header')
+
+@section('content')
+
+<div class="card card-header text-center text-uppercase mb-2">
+    <h1>Show Cart</h1>
+</div>
+
     @if ($errors->any())
         @foreach ($errors->all() as $error)
         <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
         @endforeach        
     @endif
-    <table>
-        <tr>
+    <div class="row">
+        <col-md-6></col-md-6>
+        <col-md-6></col-md-6>
+    </div>
+    <table class="table table-responsive table-hover table-striped">
+        <tr class="bg-light">
             <th>no</th>
             <th>image</th>
             <th>name</th>
             <th>price</th>
             <th>qty</th>
             <th>total</th>
+            <th>Action</th>
 
         </tr>
+        @php
+        $total_price = 0;    
+        $total_qty= 0;
+        @endphp
 
         <?php $i=1; ?>
         @foreach ($carts as $cart)
@@ -35,7 +43,7 @@
                     @csrf
 
                     <input type="number" name="amount" value="{{ $cart->amount }}">
-                    <button type="submit">update</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-sync"></i></button>
                 </form> 
             </td>
                 <?php $total = $cart->product->price * $cart->amount ?>
@@ -43,20 +51,29 @@
             <td> <form action="{{route('delete_cart', $cart)}}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
         </tr>
+        @php
+            $total_price += $cart->product->price * $cart->amount;
+            $total_qty += $cart->amount;
+        @endphp
         @endforeach
-
-        
+           
     </table>
-    <form action="{{ route('checkout') }}" method="post">
-        
-        @csrf
-        <button type="submit">Checkout</button>
-    </form>
+    <div class="card">
+    <div class="col-md-12 mb-3 card-body mr-3 pr-3 ">
+        <p class="d-flex justify-content-end ">Total Qty : {{ number_format($total_qty) }}</p>
+        <p class="d-flex justify-content-end "><strong>Total Price : {{ number_format($total_price) }}</strong></p><br>
+        <div class="d-flex justify-content-end "><form action="{{ route('checkout') }}" method="post">        
+            @csrf
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> Checkout</button>
+        </form>  </div>
+    </div>
+</div>
+    
+    
         
     
-</body>
-</html>
+@endsection

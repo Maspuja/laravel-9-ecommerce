@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,13 +18,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductController::class, 'index_product'])->name('index_product');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [ProductController::class, 'index_product'])->name('index_product');
 
 Route::get('/product/create', [ProductController::class, 'create_product'])->name('create_product');
 Route::post('/product/create', [ProductController::class, 'store_product'])->name('store_product');
@@ -42,3 +41,8 @@ Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout')
 
 Route::get('/order', [OrderController::class, 'index_order'])->name('index_order');
 Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
+Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
+Route::post('/order/{order}/confirm', [OrderController::class, 'confirm_Payment'])->name('confirm_payment');
+
+Route::get('profile', [ProfileController::class, 'show_profile'])->name('show_profile');
+Route::post('profile/edit', [ProfileController::class, 'edit_profile'])->name('edit_profile');

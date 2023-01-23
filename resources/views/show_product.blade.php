@@ -1,34 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$product->name}}</title>
-</head>
-<body>
-    
-    <h1>{{ $product->name }}</h1>
-    <img src="{{ url('storage/'.$product->image) }}" alt="" height="220px" width="260px">
-    <h3>{{ $product->description }}</h3>
-    <p>Stock : {{ $product->stock }}</p>
-    <p>Price : {{ $product->price }}</p>
-    <br>
-    <button><a href="{{route('edit_product', $product)}}">Edit Product</a></button>
-    <button><a href="{{route('index_product')}}">Back</a></button>
-    <br>
-    <br>
-    <form action="{{ route('add_to_cart', $product) }}" method="post">
-        @csrf
-        <input type="number" name="amount" value="1">
-        <button type="submit">Add to cart</button>
+@extends('layouts.header')
 
-    </form>
+@section('content')
+
+<div class="container py-2">
+    <a href="{{route('edit_product', $product)}}" class="btn btn-warning">Edit Product</a>
+    <a href="{{route('index_product')}}"  class="btn btn-secondary">Back</a>
+    <div class="row mt-2">
+      <div  class=" col-md-6
+      bg-image hover-zoom
+             shadow-4-soft
+             rounded-6
+             mb-4
+             overflow-hidden
+             d-block
+             "
+      data-ripple-color="light"
+      >
+        
+        <img src="{{ url('storage/'.$product->image) }}" alt="" class="w-100">
+      </div>
+      <div class="col-md-4 container-fluid">
+        <h1>{{ $product->name }}</h1>
+        <ul
+                    class="rating mb-2"
+                    data-mdb-toggle="rating"
+                    data-mdb-readonly="true"
+                    data-mdb-value="4"
+                    >
+                  <li>
+                    <i
+                       class="far fa-star fa-sm text-primary ps-0"
+                       title="Bad"
+                       ></i>
+                  </li>
+                  <li>
+                    <i
+                       class="far fa-star fa-sm text-primary"
+                       title="Poor"
+                       ></i>
+                  </li>
+                  <li>
+                    <i
+                       class="far fa-star fa-sm text-primary"
+                       title="OK"
+                       ></i>
+                  </li>
+                  <li>
+                    <i
+                       class="far fa-star fa-sm text-primary"
+                       title="Good"
+                       ></i>
+                  </li>
+                  <li>
+                    <i
+                       class="far fa-star fa-sm text-primary"
+                       title="Excellent"
+                       ></i>
+                  </li>
+                </ul>
+        <h3>Description : {{ $product->description }}</h3>
+        <p>Stock : {{ $product->stock }}</p>
+        <p>Price : Rp. {{ number_format($product->price) }}</p>
+        <form action="{{ route('add_to_cart', $product) }}" method="post">
+            @csrf
+        <p> Qty : <input type="number" name="amount" value="1" ></p>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus"></i> Add to cart</button>    
+        </form>
+      </div>
+    </div>
+  </div>
+    
+    <br>
+    
+    <br>
+    <br>
+    
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
         <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
         @endforeach        
     @endif
-</body>
-</html>
+
+@endsection

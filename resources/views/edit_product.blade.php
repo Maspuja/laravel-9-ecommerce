@@ -7,6 +7,11 @@
     <title>{{$product->name}}</title>
 </head>
 <body>
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
+    @endforeach        
+@endif
     <h1>Edit product {{ $product->name}}</h1>
     <form action="{{ route('update_product', $product)}}" method="post" enctype="multipart/form-data">
         @method('patch')
