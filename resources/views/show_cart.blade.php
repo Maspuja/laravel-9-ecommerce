@@ -66,7 +66,8 @@
     <div class="col-md-12 mb-3 card-body mr-3 pr-3 ">
         <p class="d-flex justify-content-end ">Total Qty : {{ number_format($total_qty) }}</p>
         <p class="d-flex justify-content-end "><strong>Total Price : {{ number_format($total_price) }}</strong></p><br>
-        <div class="d-flex justify-content-end "><form action="{{ route('checkout') }}" method="post">        
+        <div class="d-flex justify-content-end ">
+            <form action="{{ route('checkout') }}" method="post">        
             @csrf
             <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> Checkout</button>
         </form>  </div>

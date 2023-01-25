@@ -16,7 +16,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <title>Test MDB</title>
+    <title>Laravel-9 ADAB STUDIO</title>
 </head>
 <body>
     <!-- Navbar -->

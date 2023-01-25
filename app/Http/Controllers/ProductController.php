@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+
 class ProductController extends Controller
 {
     public function create_product()
@@ -42,7 +43,7 @@ class ProductController extends Controller
 
     public function index_product()
     {
-        $products = Product::paginate(3);
+        $products = Product::orderBY('created_at', 'desc')->paginate(3);
 
         return view('index_product', compact('products'));
     }

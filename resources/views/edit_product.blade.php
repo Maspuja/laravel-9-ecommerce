@@ -1,41 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$product->name}}</title>
-</head>
-<body>
+@extends('layouts.header')
+
+@section('content')
+
+<div class="mb-2 container col-md-6">
     @if ($errors->any())
-    @foreach ($errors->all() as $error)
-    <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
+        @foreach ($errors->all() as $error)
+        <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
     @endforeach        
-@endif
-    <h1>Edit product {{ $product->name}}</h1>
-    <form action="{{ route('update_product', $product)}}" method="post" enctype="multipart/form-data">
-        @method('patch')
-        @csrf
-    <label>Product name : </label>
-    <br>
-    <input type="text" name="name" value="{{ $product->name }}">
-    <br>
-    <label for="">description :</label>
-    <br>
-    <input type="text" name="description" value="{{ $product->description }}">
-    <br>
-    <label for="">Stock: </label>
-    <br>
-    <input type="number" name="stock" value="{{ $product->stock }}">
-    <br>
-    <label for="">Price : </label>
-    <br><input type="number" name="price" value="{{ $product->price }}">
-    <br>
-    <img src="{{ url('storage/'.$product->image) }}" alt="" height="220px" width="260px">
-    <br>
-    <input type="file" name="image">
-    <br>
-    <button type="submit">Update Product</button>
-    </form>
-</body>
-</html>
+    @endif
+    
+    <div class="mb-2 card">
+        <div class="mb-2 card-header text-center">
+            <h1>Edit product</h1>
+            <p> {{ $product->name}}</p>
+        </div>
+        <div class="mb-2 card-body">
+            <form action="{{ route('update_product', $product)}}" method="post" enctype="multipart/form-data">
+                @method('patch')
+                @csrf
+            <label>Product name : </label>
+            
+            <input class="mb-2 form-control" type="text" name="name" value="{{ $product->name }}">
+            
+            <label for="">description :</label>
+            
+            <input class="mb-2 form-control" type="text" name="description" value="{{ $product->description }}">
+            
+            <label for="">Stock: </label>
+            
+            <input class="mb-2 form-control" type="number" name="stock" value="{{ $product->stock }}">
+            
+            <label for="">Price : </label>
+            <input class="mb-2 form-control" type="number" name="price" value="{{ $product->price }}">
+            
+            <img src="{{ url('storage/'.$product->image) }}" alt="" class="mb-2 img-fluid">
+            
+            <input class="mb-2 form-control" type="file" name="image">
+            
+            <button type="submit" class="mb-2 btn btn-primary">Update Product</button>
+            </form>
+        </div>
+    </div>
+    
+    
+
+</div>
+@endsection

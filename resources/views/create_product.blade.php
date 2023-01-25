@@ -13,7 +13,7 @@
             <h1>Form input data produk</h1>
         </div>
         <div class="card-body col-md-10">
-        <form action="{{ route('create_product') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('store_product') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-outline mb-3">
                 <input type="text" name="name" class="form-control" />

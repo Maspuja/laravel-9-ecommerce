@@ -52,30 +52,39 @@
 </table>
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-end ">
-                <p class="py-2">Total Qty : {{ number_format($total_qty) }}</p> 
-            </div>
-            <div class="d-flex justify-content-end">
-                <p class="py-2" ><strong>Total Price : {{ number_format($total_price) }}</strong></p>
-            </div>
+            <div class="row">
+                <div class="col-md-8">@if ($order->is_paid == false && $order->payment_receipt == null)
+    
+                    <form action="{{ route('submit_payment_receipt', $order) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <label for="payment_receipt">Upload Your payment receipt</label>
+                        <br>
+                        <input type="file" name="payment_receipt" id="payment_receipt">
+                        <br>
+                        <button type="submit" class="btn btn-primary mt-1">Submit Payment</button>
+                    </form>
+                    @else
+                    
+                        <p><i class="fas fa-check-circle" ></i> anda sudah upload payment receipt</p>
+                        <img src="{{ url('storage/'.$order->payment_receipt) }}" alt="foto bukti" height="100px">
+                        <br>
+                        @endif</div>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end ">
+                        <p class="">Total Qty : {{ number_format($total_qty) }}</p> 
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <p class="" ><strong>Total Price : {{ number_format($total_price) }}</strong></p>
+                    </div>
+                </div>
+              </div>
+       
+        
+            
         </div>
         
     </div>
 
-    @if ($order->is_paid == false && $order->payment_receipt == null)
-    
-    <form action="{{ route('submit_payment_receipt', $order) }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <label for="payment_receipt">Upload Your payment receipt</label>
-        <br>
-        <input type="file" name="payment_receipt" id="payment_receipt">
-        <br>
-        <button type="submit" class="btn btn-primary mt-1">Submit Payment</button>
-    </form>
-    @else
-    
-        <p><i class="fas fa-check-circle" ></i> anda sudah upload payment receipt</p>
-        <img src="{{ url('storage/'.$order->payment_receipt) }}" alt="foto bukti" height="100px">
-        <br>   
-    @endif
+       
+   
 @endsection
