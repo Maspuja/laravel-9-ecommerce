@@ -48,6 +48,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('index_product')}}">Product</a>
           </li>
+          
+          
+
           <li class="nav-item">
             <a class="nav-link" href="{{ route('show_cart')}}">cart</a>
           </li>
@@ -84,6 +87,13 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="{{ route('show_profile') }}">Profile</a></li>
+                        
+                        @if (!Auth::check() || Auth::user()->is_admin == true)
+                          <li c>
+                            <a class="dropdown-item" href="{{ route('create_product')}}">Add product</a>
+                          </li>  
+                        @endif 
+
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

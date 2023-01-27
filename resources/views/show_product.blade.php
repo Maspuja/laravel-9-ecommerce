@@ -3,8 +3,11 @@
 @section('content')
 
 <div class="container py-2">
-    <a href="{{route('edit_product', $product)}}" class="btn btn-warning">Edit Product</a>
-    <a href="{{route('index_product')}}"  class="btn btn-secondary">Back</a>
+  <a href="{{route('index_product')}}"  class="btn btn-secondary">< Back</a>
+  @if (!Auth::check() || Auth::user()->is_admin)
+  <a href="{{route('edit_product', $product)}}" class="btn btn-warning">Edit Product</a>
+  @endif
+   
     <div class="row mt-2">
       <div  class=" col-md-6
       bg-image hover-zoom
@@ -61,12 +64,24 @@
         <h3>Description : {{ $product->description }}</h3>
         <p>Stock : {{ $product->stock }}</p>
         <p>Price : Rp. {{ number_format($product->price) }}</p>
+        @if (!Auth::check() || !Auth::user()->is_admin)
         <form action="{{ route('add_to_cart', $product) }}" method="post">
             @csrf
         <p> Qty : <input type="number" name="amount" value="1" ></p>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus"></i> Add to cart</button>    
+        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-cart-plus"></i> Add to cart</button>    
         </form>
+        @else
+        <form action="{{ route('delete_product', $product) }}" method="post">
+          @method('delete')
+          @csrf
+          <button class="btn btn-danger mt-2 btn-block"> <i class="far fa-trash-alt"></i> Delete</button>
+        </form>
+            
+        @endif
+        
+        
       </div>
+      
     </div>
   </div>
     

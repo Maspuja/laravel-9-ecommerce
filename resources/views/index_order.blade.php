@@ -15,20 +15,23 @@
       <p>User ID : {{ $order->user_id }}</p>
       <p>Order Date: {{ $order->created_at }}</p>
       <p>@if ($order->is_paid == True)
-        Status : <b>Paid</b>  
+        Status : <b class="text-success">Paid</b>  
                 
         @else
-        Status : Unpaid
+        Status : <b class="text-warning">Unpaid</b> 
         <br>
         @if ($order->payment_receipt == NULL)
             
         @else
         <a href="{{ url('storage/'. $order->payment_receipt)}}" target="__blank">Lihat bukti TF</a>
         <br>
-        {{-- <form action="{{ route('confirm_payment', $order) }}" method="post">
+
+        @if (!Auth::check() || Auth::user()->is_admin)
+        <form action="{{ route('confirm_payment', $order) }}" method="post">
           @csrf
-          <button type="submit">Confirm Payment</button>
-        </form> --}}
+          <button type="submit" class="btn btn-success">Confirm Payment</button>
+        </form>
+        @endif
       
         @endif
         

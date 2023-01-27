@@ -20,12 +20,6 @@ function showPosition(position) {
 </script>
 
     <h1>Product</h1>
-    <a href="{{ route('create_product') }}" class="btn btn-primary m-2"> + ADD PRODUCT</a>
-    {{-- <form action="{{ route('create_product') }}" method="post">
-      @csrf
-        <button class="btn btn-primary" type="submit" value="submit">+ ADD PRODUCT</button>
-    </form> --}}
-    <br>
 
     <!-- Section: Products -->
     <section class="">
