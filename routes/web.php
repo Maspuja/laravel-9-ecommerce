@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -24,6 +26,11 @@ Route::get('/home', [ProductController::class, 'index_product'])->name('index_pr
 
 Auth::routes();
 Route::get('/product', [ProductController::class, 'index_product'])->name('index_product');
+Route::get('/category', [CategoryController::class, 'index_category'])->name('index_category');
+Route::get('/category/create', [CategoryController::class, 'create_category'])->name('create_category');
+Route::post('/category/create', [CategoryController::class, 'store_category'])->name('store_category');
+Route::get('/category/{category}/edit', [CategoryController::class, 'edit_category'])->name('edit_category');
+Route::patch('/category/{category}/update', [CategoryController::class, 'update_category'])->name('update_category');
 
 Route::middleware(['admin'])->group(function()
 {
@@ -50,10 +57,13 @@ Route::get('/order', [OrderController::class, 'index_order'])->name('index_order
 Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
 Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
 
+Route::get('password', [ProfileController::class, 'show_password'])->name('show_password');
+Route::post('password/edit', [ProfileController::class, 'change_password'])->name('change_password');
 Route::get('profile', [ProfileController::class, 'show_profile'])->name('show_profile');
 Route::post('profile/edit', [ProfileController::class, 'edit_profile'])->name('edit_profile');
 
 });
+Route::get('/locale/{locale}', [LocaleController::class, "set_locale"])->name('set_locale'); 
 
 
 

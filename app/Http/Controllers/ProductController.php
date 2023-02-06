@@ -21,7 +21,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'description' => 'required',
-            'image' => 'required'
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $file = $request->file('image');
@@ -37,13 +37,13 @@ class ProductController extends Controller
             'image' => $path
         ]);
 
-                
+        $request->session()->flash('message', 'Add Product, Success !');
         return Redirect::route('index_product');
     }
 
     public function index_product()
     {
-        $products = Product::orderBY('created_at', 'desc')->paginate(3);
+        $products = Product::orderBY('created_at', 'desc')->paginate(8);
 
         return view('index_product', compact('products'));
     }
@@ -65,7 +65,8 @@ class ProductController extends Controller
             'name' => 'required|min:4',
             'price' => 'required',
             'stock' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image' =>'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $file = $request->file('image');
@@ -81,7 +82,7 @@ class ProductController extends Controller
             'image' => $path
         ]);
 
-                
+        $request->session()->flash('message', 'Edit Product, Success !');
         return Redirect::route('show_product', $product);
     }
 
@@ -89,6 +90,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
+        $request->session()->flash('message', 'Delete product, Success !');
         return Redirect::route('index_product');
     }
 }

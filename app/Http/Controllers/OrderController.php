@@ -98,6 +98,7 @@ class OrderController extends Controller
             'payment_receipt' => $path
         ]);
 
+        $request->session()->flash('message', 'Submit Payment, Success !');
         return Redirect::back();
     }
 
@@ -107,6 +108,7 @@ class OrderController extends Controller
             'is_paid' => True
         ]);
 
+        $request->session()->flash('message', 'Confirm payment, Success !');
         return Redirect::back();
     }
 

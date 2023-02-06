@@ -64,7 +64,13 @@
                         <button type="submit" class="btn btn-primary mt-1">Submit Payment</button>
                     </form>
                     @else
-                    
+
+                    @if (Session::has('message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ Session::get('message') }}</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                         <p><i class="fas fa-check-circle" ></i> anda sudah upload payment receipt</p>
                         <img src="{{ url('storage/'.$order->payment_receipt) }}" alt="foto bukti" height="100px">
                         <br>

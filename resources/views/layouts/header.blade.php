@@ -46,16 +46,28 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('index_category')}}">Category</a>
+          </li>  
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('index_product')}}">Product</a>
-          </li>
-          
-          
-
+          </li>      
           <li class="nav-item">
             <a class="nav-link" href="{{ route('show_cart')}}">cart</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('index_order', ) }}">Order</a>
+          </li>
+          <li>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                {{__('Locale')}} : {{ App::getLocale() }}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><button class="dropdown-item" type="button"><a href="{{ route('set_locale', 'en') }}">English</a></button></li>
+                <li><button class="dropdown-item" type="button"><a href="{{ route('set_locale', 'id') }}">Indonesia</a></button></li>
+                
+              </ul>
+            </div>
           </li>
         </ul>
         <!-- Left links -->
@@ -63,13 +75,13 @@
         <div class="d-flex align-items-center">
             @guest
                 @if (Route::has('login'))
-                    <button type="button" class="btn btn-link px-3 me-2">
+                    <button type="button" class="btn btn-secondary px-3 me-2">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </button>
                 @endif
 
                 @if (Route::has('register'))
-                    <button type="button" class="btn btn-dark me-3">
+                    <button type="button" class="btn btn-primary me-3">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </button>
                 @endif
@@ -87,6 +99,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="{{ route('show_profile') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('show_password') }}">Change Password</a></li>
                         
                         @if (!Auth::check() || Auth::user()->is_admin == true)
                           <li c>
@@ -187,8 +200,7 @@
   
     <!-- Copyright -->
     <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      © 2022 Copyright: mas-mas-it.com
     </div>
     <!-- Copyright -->
   </footer>

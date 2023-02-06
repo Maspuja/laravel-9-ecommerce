@@ -13,6 +13,13 @@
                 </div>   
             @endforeach        
         @endif
+
+        @if (Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ Session::get('message') }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <form action="{{ route('edit_profile') }}" method="post">
         @csrf
             <!-- Email -->
@@ -34,16 +41,16 @@
             </div>            
           
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            {{-- <div class="form-outline mb-4">
               <input type="password" name="password" id="form1Example2" class="form-control" />
               <label class="form-label" for="form1Example2">New Password</label>
-            </div>
+            </div> --}}
 
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            {{-- <div class="form-outline mb-4">
                 <input type="password" name="password_confirmation" id="form1Example2" class="form-control" />
                 <label class="form-label" for="form1Example2">Confirm Password</label>
-              </div>
+              </div> --}}
           
             
           

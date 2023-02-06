@@ -18,14 +18,22 @@ function showPosition(position) {
   "Longitude: " + position.coords.longitude;
 }
 </script>
-
+    <div class="btn btn-danger"> Locale : {{ App::getLocale()}}</div>
+    <a href="{{ route('set_locale', 'en')}}">inggris</a>
+    <a href="{{ route('set_locale', 'id')}}">indonesia</a>
     <h1>Product</h1>
+    @if (Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ Session::get('message') }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <!-- Section: Products -->
     <section class="">
         <div class="row gx-xl-5 justify-content-center">
             @foreach ($products as $product)
-          <div class="col-lg-4 col-6 mb-4 py-1 card">
+          <div class="col-lg-3 col-6 mb-4 p-1 card ">
             <!-- Product card -->
             <div>
               <!-- Product image -->
@@ -50,10 +58,10 @@ function showPosition(position) {
                     <div
                          class="
                                 d-flex
-                                justify-content-start
+                                justify-content-end
                                 align-items-end
-                                h-100
-                                p-3
+                                h-10
+                                p-1
                                 "
                          >
                       <span class="badge badge-dark rounded-pill me-2"

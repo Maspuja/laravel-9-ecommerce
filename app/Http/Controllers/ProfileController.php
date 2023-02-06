@@ -23,18 +23,39 @@ class ProfileController extends Controller
         return view('show_profile', compact('user'));   
     }
 
+    public function show_password()
+    {
+        $user = Auth::user();
+
+        return view('show_password', compact('user'));   
+    }
+
+    public function change_password(Request $request)
+    {
+        {
+            $request->validate([
+                'password' => 'Required|Min:6|confirmed'
+            ]);
+            $user = Auth::user();
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+            $request->session()->flash('message', 'Change Password, Success !');
+            return Redirect::back();
+        } 
+    }
+
     public function edit_profile(Request $request)
     {
         $request->validate([
-            'name' => 'Required',
-            'password' => 'Required|Min:6|confirmed'
+            'name' => 'Required'
         ]);
         $user = Auth::user();
         $user->update([
-            'name' => $request->name,
-            'password' => Hash::make($request->password)
+            'name' => $request->name
         ]);
 
+        $request->session()->flash('message', 'Change Profile, Success !');
         return Redirect::back();
     }
 

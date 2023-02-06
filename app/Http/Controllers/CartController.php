@@ -47,6 +47,7 @@ class CartController extends Controller
             ]);
         }
 
+        $request->session()->flash('message', 'Add to cart, Success !');
         return Redirect::route(('show_cart'));
     }
 
@@ -67,12 +68,14 @@ class CartController extends Controller
             'amount' => $request->amount
         ]);
 
+        $request->session()->flash('message', 'edit qty , Success !');
         return Redirect::route('show_cart');
     }
 
-    public function delete_cart(Cart $cart)
+    public function delete_cart(Cart $cart, Request $request)
     {
         $cart->delete();
+        $request->session()->flash('message', 'Delete cart , Success !');
         return Redirect::back();
     }
 }

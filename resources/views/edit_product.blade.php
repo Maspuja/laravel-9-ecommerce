@@ -4,11 +4,13 @@
 
 <div class="mb-2 container col-md-6">
     @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-dismissible fade show" role="alert" data-mdb-color="danger">
+            <strong>{{ $error }}</strong> 
+                <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>   
     @endforeach        
-    @endif
-    
+@endif
     <div class="mb-2 card">
         <div class="mb-2 card-header text-center">
             <h1>Edit product</h1>

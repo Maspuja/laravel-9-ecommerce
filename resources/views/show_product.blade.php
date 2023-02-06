@@ -3,12 +3,16 @@
 @section('content')
 
 <div class="container py-2">
-  <a href="{{route('index_product')}}"  class="btn btn-secondary">< Back</a>
-  @if (!Auth::check() || Auth::user()->is_admin)
-  <a href="{{route('edit_product', $product)}}" class="btn btn-warning">Edit Product</a>
-  @endif
-   
-    <div class="row mt-2">
+  
+
+  @if (Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+        <strong>{{ Session::get('message') }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    <div class="card">
+    <div class="row mt-2 p-2">
       <div  class=" col-md-6
       bg-image hover-zoom
              shadow-4-soft
@@ -22,8 +26,19 @@
         
         <img src="{{ url('storage/'.$product->image) }}" alt="" class="w-100">
       </div>
-      <div class="col-md-4 container-fluid">
-        <h1>{{ $product->name }}</h1>
+      <div class="col-md-6 container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+          <div class="container-fluid">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Product</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+              </ol>
+            </nav>
+          </div>
+        </nav>
+        <h1 class="mt-2">{{ $product->name }}</h1>
         <ul
                     class="rating mb-2"
                     data-mdb-toggle="rating"
@@ -64,6 +79,14 @@
         <h3>Description : {{ $product->description }}</h3>
         <p>Stock : {{ $product->stock }}</p>
         <p>Price : Rp. {{ number_format($product->price) }}</p>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-dismissible fade show" role="alert" data-mdb-color="danger">
+                    <strong>{{ $error }}</strong> 
+                        <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+                </div>   
+            @endforeach        
+        @endif
         @if (!Auth::check() || !Auth::user()->is_admin)
         <form action="{{ route('add_to_cart', $product) }}" method="post">
             @csrf
@@ -74,27 +97,40 @@
         <form action="{{ route('delete_product', $product) }}" method="post">
           @method('delete')
           @csrf
+          <a href="{{route('edit_product', $product)}}" class="btn btn-warning btn-block"><i class="fas fa-edit"></i> Edit Product</a>
           <button class="btn btn-danger mt-2 btn-block"> <i class="far fa-trash-alt"></i> Delete</button>
+          
         </form>
             
         @endif
         
         
       </div>
-      
+    </div> 
     </div>
+    <div id="disqus_thread" class="mt-3 card p-2"></div>
+      <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+          /*
+          var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          */
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://adiba-shop.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-    
-    <br>
-    
-    <br>
-    <br>
-    
+  
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
-        @endforeach        
-    @endif
+
+   
 
 @endsection

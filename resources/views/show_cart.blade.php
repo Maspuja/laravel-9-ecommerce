@@ -5,10 +5,19 @@
 <div class="card card-header text-center text-uppercase mb-2">
     <h1>Show Cart</h1>
 </div>
+@if (Session::has('message'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ Session::get('message') }}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-        <h1 style="background-color: red; color:white;">{{ $error }}</h1>    
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ $error }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>    
         @endforeach        
     @endif
     <div class="row">
