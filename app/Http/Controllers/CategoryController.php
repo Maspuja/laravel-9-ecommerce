@@ -54,4 +54,12 @@ class CategoryController extends Controller
         return Redirect::route('index_category', $category);
 
     }
+
+    public function delete_category(Request $request, Category $category)
+    {
+        $category->delete();
+
+        $request->session()->flash('message', 'Delete category, Success !');
+        return Redirect::route('index_category');
+    }
 }

@@ -57,10 +57,9 @@
     
                     <form action="{{ route('submit_payment_receipt', $order) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <label for="payment_receipt">Upload Your payment receipt</label>
-                        <br>
-                        <input type="file" name="payment_receipt" id="payment_receipt">
-                        <br>
+                        <label for="formFileLg" class="form-label">Upload Your payment receipt</label>
+                        <input class="form-control form-control-lg" name="payment_receipt" id="formFileLg" type="file" />
+                        
                         <button type="submit" class="btn btn-primary mt-1">Submit Payment</button>
                     </form>
                     @else

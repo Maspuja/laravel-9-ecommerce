@@ -3,7 +3,17 @@
 @section('content')
 
 <div class="container py-2">
-  
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Product</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+        </ol>
+      </nav>
+    </div>
+  </nav>  
 
   @if (Session::has('message'))
     <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
@@ -13,7 +23,7 @@
     @endif
     <div class="card">
     <div class="row mt-2 p-2">
-      <div  class=" col-md-6
+      <div  class=" col-md-7 p-2
       bg-image hover-zoom
              shadow-4-soft
              rounded-6
@@ -23,22 +33,59 @@
              "
       data-ripple-color="light"
       >
-        
-        <img src="{{ url('storage/'.$product->image) }}" alt="" class="w-100">
-      </div>
-      <div class="col-md-6 container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-          <div class="container-fluid">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('index_product')}}">Product</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
-              </ol>
-            </nav>
+      <div class="ecommerce-gallery" data-mdb-zoom-effect="true" data-mdb-auto-height="true">
+        <div class="row py-3 shadow-5">
+          <div class="col-12 mb-1">
+            <div class="lightbox">
+              <img
+                src="{{ url('storage/'.$product->image) }}"
+                data-mdb-img="{{ url('storage/'.$product->image) }}"
+                alt="White blouse"
+                class="ecommerce-gallery-main-img active w-100"
+              />
+            </div>
           </div>
-        </nav>
-        <h1 class="mt-2">{{ $product->name }}</h1>
+          <div class="col-3 mt-1">
+            <img
+              src="{{ url('storage/'.$product->image) }}"
+              data-mdb-img="{{ url('storage/'.$product->image) }}"
+              data-mdb-img="{{ url('storage/'.$product->image) }}"
+              alt="White blouse"
+              class="active w-100"
+            />
+          </div>
+          <div class="col-3 mt-1">
+            <img
+              src="{{ url('storage/'.$product->image) }}"
+              data-mdb-img="{{ url('storage/'.$product->image) }}"
+              alt="Blue Jeans Jacket"
+              class="w-100"
+            />
+          </div>
+          <div class="col-3 mt-1">
+            <img
+              src="{{ url('storage/'.$product->image) }}"
+              data-mdb-img="{{ url('storage/'.$product->image) }}"
+              alt="Red Sweatshirt"
+              class="w-100"
+            />
+          </div>
+          <div class="col-3 mt-1">
+            <img
+              src="{{ url('storage/'.$product->image) }}"
+              data-mdb-img="{{ url('storage/'.$product->image) }}"
+              alt="Black Shirt"
+              class="w-100"
+            />
+          </div>
+        </div>
+      </div>
+        
+        {{-- <img src="{{ url('storage/'.$product->image) }}" alt="" class="w-100 p-2"> --}}
+      </div>
+      <div class="col-md-4 py-2 container-fluid card card-header mb-2">
+        
+        <h1 class="mt-2  "><hr>{{ $product->name }} <hr></h1>
         <ul
                     class="rating mb-2"
                     data-mdb-toggle="rating"
@@ -90,14 +137,14 @@
         @if (!Auth::check() || !Auth::user()->is_admin)
         <form action="{{ route('add_to_cart', $product) }}" method="post">
             @csrf
-        <p> Qty : <input type="number" name="amount" value="1" ></p>
-        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-cart-plus"></i> Add to cart</button>    
+        <p> Qty : <input type="number" name="amount" value="1"></p>
+        <button type="submit" class="btn btn-primary btn-block mb-4"><i class="fas fa-cart-plus"></i> Add to cart</button>    
         </form>
         @else
         <form action="{{ route('delete_product', $product) }}" method="post">
           @method('delete')
           @csrf
-          <a href="{{route('edit_product', $product)}}" class="btn btn-warning btn-block"><i class="fas fa-edit"></i> Edit Product</a>
+          <a href="{{route('edit_product', $product)}}" class="btn btn-warning btn-block mt-2 mb-2"><i class="fas fa-edit"></i> Edit Product</a>
           <button class="btn btn-danger mt-2 btn-block"> <i class="far fa-trash-alt"></i> Delete</button>
           
         </form>

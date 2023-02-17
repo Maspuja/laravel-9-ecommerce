@@ -6,6 +6,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -26,11 +27,11 @@ Route::get('/home', [ProductController::class, 'index_product'])->name('index_pr
 
 Auth::routes();
 Route::get('/product', [ProductController::class, 'index_product'])->name('index_product');
-Route::get('/category', [CategoryController::class, 'index_category'])->name('index_category');
-Route::get('/category/create', [CategoryController::class, 'create_category'])->name('create_category');
-Route::post('/category/create', [CategoryController::class, 'store_category'])->name('store_category');
-Route::get('/category/{category}/edit', [CategoryController::class, 'edit_category'])->name('edit_category');
-Route::patch('/category/{category}/update', [CategoryController::class, 'update_category'])->name('update_category');
+Route::get('/blog', [BlogController::class, 'index_blog'])->name('index_blog');
+Route::get('/blog/create', [BlogController::class, 'create_blog'])->name('create_blog');
+Route::post('/blog/create', [BlogController::class, 'store_blog'])->name('store_blog');
+Route::get('/blog/{blog:slug}', [BlogController::class, 'show_blog'])->name('show_blog');
+
 
 Route::middleware(['admin'])->group(function()
 {
@@ -40,6 +41,13 @@ Route::middleware(['admin'])->group(function()
     Route::patch('/product/{product}/update', [ProductController::class, 'update_product'])->name('update_product');
     Route::delete('/product/{product}', [ProductController::class, 'delete_product'])->name('delete_product');
     Route::post('/order/{order}/confirm', [OrderController::class, 'confirm_Payment'])->name('confirm_payment');
+    Route::get('/category', [CategoryController::class, 'index_category'])->name('index_category');
+    Route::get('/category/create', [CategoryController::class, 'create_category'])->name('create_category');
+    Route::post('/category/create', [CategoryController::class, 'store_category'])->name('store_category');
+    Route::get('/category/{category}/edit', [CategoryController::class, 'edit_category'])->name('edit_category');
+    Route::patch('/category/{category}/update', [CategoryController::class, 'update_category'])->name('update_category');
+    Route::delete('/category/{category}', [CategoryController::class, 'delete_category'])->name('delete_category');
+    
 });
 
 

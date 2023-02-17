@@ -18,6 +18,7 @@
         </div>
         <div class="card-body col-md-10">
         <form action="{{ route('update_category', $category) }}" method="post" enctype="multipart/form-data">
+            @method('patch')
             @csrf
             <div class="form-outline mb-3">
                 <input type="text" name="name" class="form-control" value="{{ $category->name }}"/>

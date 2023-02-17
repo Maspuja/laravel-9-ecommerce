@@ -6,9 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset('Mdbootstrap/css/mdb.min.css')}}">
     <link rel="stylesheet" href="{{asset('Mdbootstrap/plugins/css/ecommerce-gallery.min.css')}}">
+    <link rel="stylesheet" href="{{asset('Mdbootstrap/plugins/css/multi-carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('Mdbootstrap/plugins/css/captcha.min.css')}}">
+    
     <link rel="stylesheet" href="{{asset('Mdbootstrap/src/plugins/ecommerce-gallery/scss/_ecommerce-gallery.scss')}}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- Font Awesome -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
@@ -20,11 +24,11 @@
 </head>
 <body>
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark text-light bg-primary">
     <!-- Container wrapper -->
     <div class="container">
       <!-- Navbar brand -->
-      <a class="navbar-brand me-2 text-dark" href="{{ route('index_product')}}">
+      <a class="navbar-brand me-2 text-light" href="{{ route('index_product')}}">
          Adab Studio
       </a>
   
@@ -46,8 +50,8 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('index_category')}}">Category</a>
-          </li>  
+            <a class="nav-link" href="{{ route('index_blog')}}">Blog</a>
+          </li> 
           <li class="nav-item">
             <a class="nav-link" href="{{ route('index_product')}}">Product</a>
           </li>      
@@ -57,18 +61,19 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('index_order', ) }}">Order</a>
           </li>
-          <li>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
-                {{__('Locale')}} : {{ App::getLocale() }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><button class="dropdown-item" type="button"><a href="{{ route('set_locale', 'en') }}">English</a></button></li>
-                <li><button class="dropdown-item" type="button"><a href="{{ route('set_locale', 'id') }}">Indonesia</a></button></li>
-                
-              </ul>
-            </div>
-          </li>
+
+          @if (!Auth::check() || Auth::user()->is_admin == true)
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('index_category')}}">Category</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('create_blog')}}">Add Blog</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('create_product')}}">Add product</a>
+          </li>  
+        @endif 
+          
         </ul>
         <!-- Left links -->
   
@@ -101,24 +106,21 @@
                         <li><a class="dropdown-item" href="{{ route('show_profile') }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('show_password') }}">Change Password</a></li>
                         
-                        @if (!Auth::check() || Auth::user()->is_admin == true)
-                          <li c>
-                            <a class="dropdown-item" href="{{ route('create_product')}}">Add product</a>
-                          </li>  
-                        @endif 
-
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
                       </ul>
                     </div>
+                    <div>
+                      <button class="btn btn-secondary ml-2"> 
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }} <i class="fas fa-sign-out-alt"></i>
+                        </a> 
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </button>
+                    </div>
+                    
            
             @endguest
         </div>
@@ -206,6 +208,9 @@
   </footer>
 <script type="text/javascript" src="{{ asset('Mdbootstrap/js/mdb.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('Mdbootstrap/plugins/js/ecommerce-gallery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('Mdbootstrap/plugins/js/multi-carousel.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('Mdbootstrap/plugins/js/captcha.min.js')}}"></script>
+
 <script type="text/javascript" src="{{ asset('Mdbootstrap/src/plugins/ecommerce-gallery/js/ecommerce-gallery.js')}}"></script>
 
 </html>

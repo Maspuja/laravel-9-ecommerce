@@ -51,6 +51,9 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <script src="https://www.google.com/recaptcha/api.js"></script>
+                        <div class="captcha" data-mdb-sitekey="YOUR_SITEKEY"></div>
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">

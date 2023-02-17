@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if (Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ Session::get('message') }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
 <a href="{{ route('create_category') }}" class="btn btn-primary m-2"> + Add category</a>
   
     <table class="table table-responsive table-bordered">
@@ -21,9 +28,15 @@
             <td>{{ $category->created_at }}</td>
             <td>{{ $category->updated_at}}</td>
             <td>
-                <form action="{{ route('edit_category', $category) }}" method="get">
+                <form action="{{ route('edit_category', $category) }}" method="get" >
                     @csrf
-                    <button type="submit" class="btn btn-xs btn-warning"> Edit Category </button>
+                    <button type="submit" class="badge rounded-pill badge-light text-dark" ><i class="fas fa-edit"></i> Edit </button>
+                </form>
+                
+                <form action="{{ route('delete_category', $category) }}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="badge rounded-pill badge-dark"><i class="fas fa-trash-alt"></i> Delete</button>
                 </form>
             </td>
             

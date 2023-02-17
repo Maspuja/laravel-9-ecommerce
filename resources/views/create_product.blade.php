@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-outline mb-3">
-                <input type="text" name="description"  class="form-control" />
+                <textarea name="description"  class="form-control" maxlength="250"></textarea>
                 <label class="form-label" for="form1Example1">Description</label>
             </div>
             <div class="form-outline mb-3">

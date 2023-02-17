@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p id="demo"></p>
+{{-- <p id="demo"></p>
 
 <script>
 if (navigator.geolocation) {
@@ -17,11 +17,9 @@ function showPosition(position) {
   "Latitude: " + position.coords.latitude + "<br>" +
   "Longitude: " + position.coords.longitude;
 }
-</script>
-    <div class="btn btn-danger"> Locale : {{ App::getLocale()}}</div>
-    <a href="{{ route('set_locale', 'en')}}">inggris</a>
-    <a href="{{ route('set_locale', 'id')}}">indonesia</a>
-    <h1>Product</h1>
+</script> --}}
+<div class=""> 
+    
     @if (Session::has('message'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>{{ Session::get('message') }}</strong> 
@@ -36,6 +34,7 @@ function showPosition(position) {
           <div class="col-lg-3 col-6 mb-4 p-1 card ">
             <!-- Product card -->
             <div>
+              
               <!-- Product image -->
               <div
                    class="
@@ -79,7 +78,7 @@ function showPosition(position) {
               </div>
 
               <!-- Product content -->
-              <a href="" class="px-3 text-reset d-block">
+              <a href="{{ route('show_product', $product) }}" class="px-3 text-reset d-block" data-mdb-toggle="tooltip" title="view detail" >
                 <p class="fw-bold mb-2">{{ $product->name}}</p>
                 <ul
                     class="rating mb-2"
@@ -133,30 +132,5 @@ function showPosition(position) {
       </section>
       <!-- Section: Products -->
 
-    
-    {{-- <table>
-        <tr>
-            <th>No</th>
-            <th>image</th>
-            <th>Name</th>
-            <th>Action</th>
-        </tr>
-        
-        <?php $i=1; ?>
-         @foreach ($products as $product)
-        <tr>
-            <td>{{ $i++; }}</td>
-            <td><img src="{{ url('storage/'.$product->image) }}" height="100px" width="100px"> </td>    
-            <td><a href="{{ route('show_product', $product)}}"> {{ $product->name }} </a></td>
-            <td><form action="{{ route('delete_product', $product) }}" method="post">
-                @method('delete')
-                @csrf
-                <button>Delete</button>
-                </form> 
-            </td>
-        </tr>
-         @endforeach
-            
-    </table> --}}
-    
+  </div>
 @endsection
